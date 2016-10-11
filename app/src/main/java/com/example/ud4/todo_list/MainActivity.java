@@ -12,8 +12,6 @@ import android.widget.ArrayAdapter;
 
 public class MainActivity extends AppCompatActivity 
 {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -25,14 +23,13 @@ public class MainActivity extends AppCompatActivity
         listItems.add("Finish udacity tut");
         listItems.add("Wrap up this app");
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_items, listItems);
+        ItemAdapter adapter = new ItemAdapter(this, listItems);
 
-        ////Grab the ListView
-        //ListView listView = (ListView) findViewById(R.id.list);
+        //Grab the ListView
+        ListView listView = (ListView) findViewById(R.id.incomplete_list);
 
-        ////Set adapter
-        //listView.setAdapter(adapter);
-
+        //Set adapter
+        listView.setAdapter(adapter);
     }
 
     // AddItem -- called upon add_button is clicked

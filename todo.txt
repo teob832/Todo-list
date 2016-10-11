@@ -1,11 +1,21 @@
-list-items.xml:
+activity_main.xml:
 ****************************************
-    Horizontal LinearLayout
-        * CheckBox
-        * EditButton
-        * DeleteButton
+    * incomplete listview
+    * complete listview -- let's ignore for now
+    * add button
 
 
-MainActivity:
+
+list_items.xml:
+****************************************
+horizontal LinearLayout
+    * CheckBox
+    * EditButton
+    * DeleteButton
+
+
+
+
+MainActivity.java:
 ****************************************
     ListView + Array Adapter
