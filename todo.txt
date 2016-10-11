@@ -1,21 +1,33 @@
-activity_main.xml:
-****************************************
-    * incomplete listview
-    * complete listview -- let's ignore for now
-    * add button
+[*] activity_main.xml:
+    ****************************************
+        * incomplete listview
+        * complete listview -- let's ignore for now
+        * add button
+
+[*] list_items.xml:
+    ****************************************
+    horizontal LinearLayout
+        * CheckBox
+        * EditButton
+        * DeleteButton
+
+[*] MainActivity.java:
+    ****************************************
+        ListView + Array Adapter
+
+[ ] Add FAB 
+    ****************************************
+        onClick -- pop dialog (with edittext)
 
 
+Future:
+    * Options on each item 
+        - Long click to go into edit mode (also show Delete)
+        - Gmail-like Swipe to confirm delete
+    * Visual polish
+        - Round checkbox
+        - Sync colors (add_button, checked state for boxes, top bar)
+        - 
+    * Split list (incomplete vs. complete)
+        - Move item to correct list when checked/unchecked
 
-list_items.xml:
-****************************************
-horizontal LinearLayout
-    * CheckBox
-    * EditButton
-    * DeleteButton
-
-
-
-
-MainActivity.java:
-****************************************
-    ListView + Array Adapter

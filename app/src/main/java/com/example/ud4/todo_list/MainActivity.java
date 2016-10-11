@@ -9,6 +9,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.support.design.widget.FloatingActionButton;
+
+
 
 public class MainActivity extends AppCompatActivity 
 {
@@ -18,19 +21,43 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // ListView set up
+        // *********************************** 
         ArrayList<String> listItems = new ArrayList<String>();
 
+        listItems.add("FFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutiFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutnish udacity tut");
+        listItems.add("Wrap up this app");
+        listItems.add("Finish udacity tut");
+        listItems.add("Wrap up this app");
+        listItems.add("Finish udacity tut");
+        listItems.add("Wrap up this app");
+        listItems.add("Finish udacity tut");
+        listItems.add("Wrap up this app");
+        listItems.add("Finish udacity tut");
+        listItems.add("Wrap up this app");
         listItems.add("Finish udacity tut");
         listItems.add("Wrap up this app");
 
         ItemAdapter adapter = new ItemAdapter(this, listItems);
-
-        //Grab the ListView
         ListView listView = (ListView) findViewById(R.id.incomplete_list);
-
-        //Set adapter
         listView.setAdapter(adapter);
-    }
+
+
+        // Add Button
+        // *********************************** 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_button);
+
+        fab.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                //Pop up a dialog with an entry box
+            }
+        });
+
+
+    }//end-onCreate
 
     // AddItem -- called upon add_button is clicked
     //**********************************************
@@ -41,7 +68,6 @@ public class MainActivity extends AppCompatActivity
 
         ////Create new checkbox
         //CheckBox newItem = new CheckBox(this);
-
     }
 
 
