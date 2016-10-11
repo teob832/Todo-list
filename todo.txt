@@ -15,19 +15,30 @@
     ****************************************
         ListView + Array Adapter
 
-[ ] Add FAB 
+[x] Add FAB 
     ****************************************
-        onClick -- pop dialog (with edittext)
+       [*] onClick 
+            [*] Pop dialog (with edittext) to grab user input
+            [*] Create a new listView item
+            [*] Append to adapter
+
+
+
+
 
 
 Future:
     * Options on each item 
         - Long click to go into edit mode (also show Delete)
         - Gmail-like Swipe to confirm delete
-    * Visual polish
-        - Round checkbox
-        - Sync colors (add_button, checked state for boxes, top bar)
-        - 
+
+    * Save/Load state upon quitting/launching 
+        - onPause, onResume
+        - file read/write vs. SQLite
+
     * Split list (incomplete vs. complete)
         - Move item to correct list when checked/unchecked
 
+    * Visual polish
+        - Round checkbox
+        - Sync colors (add_button, checked state for boxes, top bar)
