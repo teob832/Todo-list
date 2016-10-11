@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.graphics.Paint;
 
 public class MainActivity extends AppCompatActivity 
 {
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         // Add Button
         // *********************************** 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
+        fab.setOnClickListener(new View.OnClickListener() {
+        
             public void onClick(View view)
             {
                 //Pop up a dialog with an entry box
@@ -96,13 +97,22 @@ public class MainActivity extends AppCompatActivity
 
     // AddItem -- called upon add_button is clicked
     //**********************************************
-    public void addItem(View view)
+    public void toggleStrikeThrough(View view)
     {
-        ////Grab entryBox's text
-        //TextView entryBox = (TextView) findViewById(R.id.entry_box);
-
-        ////Create new checkbox
-        //CheckBox newItem = new CheckBox(this);
+        //Grab entryBox's text
+        CheckBox checkbox = (CheckBox) view;
+        
+        //Determine if checked
+        if (checkbox.isChecked() == true)
+        {
+            //Set Strikethrough text
+            checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else
+        {
+            //Reset
+            checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        }
     }
 
 

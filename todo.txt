@@ -22,16 +22,8 @@
             [*] Create a new listView item
             [*] Append to adapter
 
-
-[o] Cross-off checked items
-        onClick="toggle"
-        toggle(View view)
-        {
-            if now checked
-                settext's style to STRIKETHROUGH
-        }
-        
-
+[x] Cross-off checked items
+        onClick="toggle strikethrough"
 
 
 
