@@ -1,0 +1,11 @@
+list-items.xml:
+****************************************
+    Horizontal LinearLayout
+        * CheckBox
+        * EditButton
+        * DeleteButton
+
+
+MainActivity:
+****************************************
+    ListView + Array Adapter
