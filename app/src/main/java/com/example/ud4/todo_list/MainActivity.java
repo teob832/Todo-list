@@ -102,31 +102,6 @@ public class MainActivity extends AppCompatActivity
             }//end-onItemLongClick
         });
 
-        // Item OnClick -- toggleStrikeThrough 
-        // ********************************************* 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView parent, View view, int position, long id) 
-            {
-                //Grab checkBox (the listView item)
-                CheckBox checkbox = (CheckBox) view;
-                
-                //Determine if checked
-                if (checkbox.isChecked() == true)
-                {
-                    //Set Strikethrough text
-                    checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    listItems.get(position).setFlag(true);
-                }
-                else
-                {
-                    //Reset strikethrough
-                    checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    listItems.get(position).setFlag(false);
-                }
-            }//end-onItemClick
-        });
 
         // Add Button
         // *********************************** 
@@ -179,4 +154,38 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }//end-onCreate
+
+    // OnClick for CheckBox -- called upon add_button is clicked
+    //**********************************************
+    public void toggleStrikeThrough(View view)
+    {
+        //Grab entryBox's text
+        CheckBox checkbox = (CheckBox) view;
+        final String currentValue = checkbox.getText().toString();
+        int pos = 0;
+        
+        //GetPosition of the clicked ListItem
+        for (int i = 0; i < listItems.size(); ++i)
+        {
+            if(listItems.get(i).getText() == currentValue)
+            {
+                pos = i;
+                break;
+            }
+        }
+
+        //Determine if checked
+        if (checkbox.isChecked() == true)
+        {
+            //Set Strikethrough text
+            checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            listItems.get(pos).setFlag(true);
+        }
+        else
+        {
+            //Reset
+            checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            listItems.get(pos).setFlag(false);
+        }
+    }
 }//end-class

@@ -10,20 +10,34 @@
         * CheckBox
         * EditButton
         * DeleteButton
-
 [*] MainActivity.java:
     ****************************************
         ListView + Array Adapter
-
 [x] Add FAB 
     ****************************************
        [*] onClick 
             [*] Pop dialog (with edittext) to grab user input
             [*] Create a new listView item
             [*] Append to adapter
-
 [x] Cross-off checked items
         onClick="toggle strikethrough"
+[x] Each item has state: Checked vs. Unchecked
+        [x] Need custom class (needed for loading from file)
+
+
+
+
+
+
+
+
+Bug fix:
+    [ ] StrikeThorugh onClick doesn't work
+
+
+
+
+
 
 
 
@@ -31,11 +45,9 @@
 [o] Options on each item 
         [x] Long click to go into edit mode
                 Implement logic to pop dialog with EditText that grabs value
-        [o] Gmail-like Swipe to confirm delete
+        [ ] Gmail-like Swipe to confirm delete
 
 
-[x] Each item has state: Checked vs. Unchecked
-        Need custom class (needed for loading from file)
 
 
 
