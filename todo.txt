@@ -23,6 +23,10 @@
         onClick="toggle strikethrough"
 [x] Each item has state: Checked vs. Unchecked
         [x] Need custom class (needed for loading from file)
+[x] Bug fix: StrikeThorugh onClick doesn't work
+
+[x] Long click to go into edit/delete mode
+        Implement logic to pop dialog with EditText that grabs value
 
 
 
@@ -30,22 +34,6 @@
 
 
 
-
-Bug fix:
-    [ ] StrikeThorugh onClick doesn't work
-
-
-
-
-
-
-
-
-
-[o] Options on each item 
-        [x] Long click to go into edit mode
-                Implement logic to pop dialog with EditText that grabs value
-        [ ] Gmail-like Swipe to confirm delete
 
 
 
