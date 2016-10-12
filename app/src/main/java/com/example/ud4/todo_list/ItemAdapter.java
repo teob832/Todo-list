@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 
 
-public class ItemAdapter extends ArrayAdapter<String>
+public class ItemAdapter extends ArrayAdapter<ListItem>
 {
-    public ItemAdapter(Activity context, ArrayList<String> list) 
+    public ItemAdapter(Activity context, ArrayList<ListItem> list) 
     {
         super(context, 0, list);
     }
@@ -27,14 +27,16 @@ public class ItemAdapter extends ArrayAdapter<String>
                 R.layout.list_items, parent, false);
         }
 
-        //Grab word at given position 
-        String currentItem = getItem(position);
+        //Grab values at given position 
+        String currentText = getItem(position).getText();
+        boolean currentFlag = getItem(position).getFlag();
 
         //Grab checkbox
         CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.checkbox);
 
-        //Set the text
-        checkBox.setText(currentItem);
+        //Set the values
+        checkBox.setText(currentText);
+        checkBox.setChecked(currentFlag);
 
 
         return listItemView;

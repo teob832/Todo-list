@@ -31,8 +31,11 @@
 [o] Options on each item 
         [x] Long click to go into edit mode
                 Implement logic to pop dialog with EditText that grabs value
-        [ ] Gmail-like Swipe to confirm delete
+        [o] Gmail-like Swipe to confirm delete
 
+
+[x] Each item has state: Checked vs. Unchecked
+        Need custom class (needed for loading from file)
 
 
 
@@ -41,7 +44,7 @@
 Future:
     * Save/Load state upon quitting/launching 
         - onPause, onResume
-        - file read/write vs. SQLite
+        - file read/write 
 
     * Split list (incomplete vs. complete)
         - Move item to correct list when checked/unchecked
@@ -54,4 +57,5 @@ Future:
 
 Possible Modifications:
     * Replace edit dialog with in-place EditText    
+    * SYNCED TODOLIST: Write JavaScript TodoList -- set up database and sync
 

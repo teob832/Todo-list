@@ -11,17 +11,17 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.support.design.widget.FloatingActionButton;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
 import android.graphics.Paint;
-import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity 
 {
     //Data members
-    ArrayList<String> listItems = new ArrayList<String>();
+    ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     ItemAdapter adapter;
 
     @Override
@@ -30,21 +30,19 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // ListView set up
+        // Initialize ListView's array
         // *********************************** 
-        listItems.add("FFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutiFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutFinish udacity tutnish udacity tut");
-        listItems.add("Wrap up this app");
-        listItems.add("Finish udacity tut");
-        listItems.add("Finish udacity tut");
-        listItems.add("Wrap up this app");
+        listItems.add(new ListItem("Finish tutorial"));
+        listItems.add(new ListItem("Finish app"));
+
 
         // Set adapter
         adapter = new ItemAdapter(this, listItems);
         ListView listView = (ListView) findViewById(R.id.incomplete_list);
         listView.setAdapter(adapter);
 
-        // Long Click -- Edit item
+        // Item Long Click -- Edit item
+        // ********************************************* 
         listView.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener()
         {
             @Override
@@ -77,9 +75,9 @@ public class MainActivity extends AppCompatActivity
                         //Find index of edited value in the ArrayList
                         for (int i = 0; i < listItems.size(); ++i)
                         {
-                            if (listItems.get(i) == originalText)
+                            if (listItems.get(i).getText() == originalText)
                             {
-                                listItems.set(i, grabbedText);
+                                listItems.get(i).setText(grabbedText);
                                 break;
                             }
                         }
@@ -101,10 +99,34 @@ public class MainActivity extends AppCompatActivity
                 dialog.show();
 
                 return true;
-            }
+            }//end-onItemLongClick
         });
 
-
+        // Item OnClick -- toggleStrikeThrough 
+        // ********************************************* 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) 
+            {
+                //Grab checkBox (the listView item)
+                CheckBox checkbox = (CheckBox) view;
+                
+                //Determine if checked
+                if (checkbox.isChecked() == true)
+                {
+                    //Set Strikethrough text
+                    checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    listItems.get(position).setFlag(true);
+                }
+                else
+                {
+                    //Reset strikethrough
+                    checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    listItems.get(position).setFlag(false);
+                }
+            }//end-onItemClick
+        });
 
         // Add Button
         // *********************************** 
@@ -135,7 +157,8 @@ public class MainActivity extends AppCompatActivity
                         //Append to incomplete
                         
                         String grabbedText = input.getText().toString();
-                        listItems.add(grabbedText);                
+                        ListItem newItem = new ListItem(grabbedText);
+                        listItems.add(newItem);                
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -155,30 +178,5 @@ public class MainActivity extends AppCompatActivity
                 dialog.show();
             }
         });
-
-
     }//end-onCreate
-
-    // OnClick -- Toggles strikethrough depending on checkBox state
-    //**********************************************
-    public void toggleStrikeThrough(View view)
-    {
-        //Grab entryBox's text
-        CheckBox checkbox = (CheckBox) view;
-        
-        //Determine if checked
-        if (checkbox.isChecked() == true)
-        {
-            //Set Strikethrough text
-            checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-        else
-        {
-            //Reset
-            checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-        }
-    }
-
-
-
 }//end-class
