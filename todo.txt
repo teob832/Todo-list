@@ -27,11 +27,18 @@
 
 
 
-Future:
-    * Options on each item 
-        - Long click to go into edit mode (also show Delete)
-        - Gmail-like Swipe to confirm delete
 
+[o] Options on each item 
+        [x] Long click to go into edit mode
+                Implement logic to pop dialog with EditText that grabs value
+        [ ] Gmail-like Swipe to confirm delete
+
+
+
+
+
+
+Future:
     * Save/Load state upon quitting/launching 
         - onPause, onResume
         - file read/write vs. SQLite
@@ -42,3 +49,9 @@ Future:
     * Visual polish
         - Round checkbox
         - Sync colors (add_button, checked state for boxes, top bar)
+
+
+
+Possible Modifications:
+    * Replace edit dialog with in-place EditText    
+

@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
 import android.graphics.Paint;
+import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity 
 {
@@ -38,9 +39,71 @@ public class MainActivity extends AppCompatActivity
         listItems.add("Finish udacity tut");
         listItems.add("Wrap up this app");
 
+        // Set adapter
         adapter = new ItemAdapter(this, listItems);
         ListView listView = (ListView) findViewById(R.id.incomplete_list);
         listView.setAdapter(adapter);
+
+        // Long Click -- Edit item
+        listView.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView parent, View view, int position, long id)
+            {
+                // Cast currentView
+                CheckBox currentView = (CheckBox) view;
+                final String originalText = currentView.getText().toString();
+
+                //Pop open a dialog with EditText
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Edit Item:");
+                
+                // Set up the input
+                final EditText input = new EditText(MainActivity.this);
+
+                // Specify the type of input expected
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setText(originalText);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("DONE", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        String grabbedText = input.getText().toString();
+
+                        //Find index of edited value in the ArrayList
+                        for (int i = 0; i < listItems.size(); ++i)
+                        {
+                            if (listItems.get(i) == originalText)
+                            {
+                                listItems.set(i, grabbedText);
+                                break;
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                // Set up the buttons
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog.show();
+
+                return true;
+            }
+        });
+
 
 
         // Add Button
@@ -87,15 +150,16 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
 
-                builder.show();
-
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog.show();
             }
         });
 
 
     }//end-onCreate
 
-    // AddItem -- called upon add_button is clicked
+    // OnClick -- Toggles strikethrough depending on checkBox state
     //**********************************************
     public void toggleStrikeThrough(View view)
     {
@@ -114,7 +178,6 @@ public class MainActivity extends AppCompatActivity
             checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
         }
     }
-
 
 
 

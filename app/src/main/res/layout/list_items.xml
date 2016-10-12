@@ -13,5 +13,6 @@
         android:layout_weight="8"
         android:textSize="18sp"
         android:onClick="toggleStrikeThrough"
+        android:longClickable="true"
         />
 </LinearLayout>
