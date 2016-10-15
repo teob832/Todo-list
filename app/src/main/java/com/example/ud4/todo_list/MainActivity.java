@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.PrintWriter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +25,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.content.Context;
 import android.graphics.Paint;
-
 
 
 public class MainActivity extends AppCompatActivity 
@@ -38,26 +41,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //String string = "hello world!";
-        //String filename = "mydata.txt";
-
-        //try
-        //{
-            //FileOutputStream fos = openFileOutput(filename, MainActivity.this.MODE_PRIVATE);
-            //fos.write(string.getBytes());
-            //fos.close();
-        //}
-        //catch (Exception e)
-        //{
-            //e.printStackTrace();
-        //}
-
-
-
-        // Initialize ListView's array
-        // *********************************** 
-        listItems.add(new ListItem("Finish tutorial"));
-        listItems.add(new ListItem("Finish app"));
+        //Check if mydata exists, create if not
+        initDataFile(this, "mydata.txt");
+        //Initialize data
+        loadData(this, "mydata.txt");
 
 
         // Set adapter
@@ -225,52 +212,95 @@ public class MainActivity extends AppCompatActivity
         });
     }//end-onCreate
 
-    //@Override
-    //protected void onPause() 
-    //{
-        //super.onPause();
+    @Override
+    protected void onPause() 
+    {
+        super.onPause();
+        saveData(this, "mydata.txt");
+    }//end-onPause
 
-        //try
-        //{
-            //String string = "hello world!";
-            //FileOutputStream fos = openFileOutput("mydata.txt", MainActivity.this.MODE_PRIVATE);
-            //fos.write(string.getBytes());
-            //fos.close();
-        //}
-        //catch (Exception e)
-        //{
-            //e.printStackTrace();
-        //}
-    //}//end-onPause
+    @Override
+    protected void onResume() 
+    {
+        super.onResume();
 
-    //@Override
-    //protected void onResume() 
-    //{
-        //super.onResume();
+        listItems.clear();
+        loadData(this, "mydata.txt");
+        adapter.notifyDataSetChanged();
 
-        //File file = new File("mydata.txt");
-        //String str = "";
-        //String result = "";
+    }//end-onResume
 
-        //try
-        //{
-            //FileInputStream fis = new FileInputStream(file);
-            //BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+
+    // Write content of listItems to file 
+    // ********************************************************************** 
+    public void saveData(Context context, String filename)
+    {
+        //Create dir
+        File file = new File(context.getFilesDir(),"mydir");
+        if (!file.exists())
+            file.mkdir();
+
+        try{
+            File outFile = new File(file, filename);
+
+            //Clear content of file
+            PrintWriter cleaner = new PrintWriter(outFile);
+            cleaner.close();
+
+            //Start Writing
+            FileWriter writer = new FileWriter(outFile);
+
+            for (int i = 0; i < listItems.size(); ++i)
+                writer.append(listItems.get(i).getText() + "\n");
+
+            writer.flush();
+            writer.close();
+
+        }catch (Exception e){
+
+        }
+    }
+
+    // Read From File -- initialize the listView array
+    // ********************************************************************** 
+    public void loadData(Context context, String filename)
+    {
+        String line = "";
+        File file = new File(context.getFilesDir(),"mydir");
+        
+        try{
+            File inFile = new File(file, filename);
+            // open input stream test.txt for reading purpose.
+            BufferedReader reader = new BufferedReader(new FileReader(inFile));
+
+            while ((line = reader.readLine()) != null) 
+                listItems.add(new ListItem(line));
+        }
+
+        catch(Exception e){
+        }
+    }
+
+    // Create file
+    // ********************************************************************** 
+    public void initDataFile(Context context, String filename)
+    {
+        //Create dir
+        File file = new File(context.getFilesDir(),"mydir");
+        if (!file.exists())
+        {
+            file.mkdir();
             
-            //str = reader.readLine();
-            //while (str != null)
-                //result += str;
+            try{
+                File outFile = new File(file, filename);
 
-            //listItems.add(new ListItem(result));
+                //Create file
+                PrintWriter creator = new PrintWriter(outFile);
+                creator.close();
+            }
+            catch(Exception e){
+            }
 
-
-            //adapter.notifyDataSetChanged();
-            //reader.close();
-            //fis.close();
-        //}
-        //catch (Exception e)
-        //{
-            //e.printStackTrace();
-        //}
-    //}//end-onPause
+        }
+    }
 }//end-class

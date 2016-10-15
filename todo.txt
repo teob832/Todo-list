@@ -27,26 +27,24 @@
 
 [x] Long click to go into edit/delete mode
         Implement logic to pop dialog with EditText that grabs value
+[x] Remove strikethrough
 
-
-
-
+[x] Save/Load state upon quitting/launching 
+        [x] onInstall
+            * Create file
+        [x] onPause
+            * write values of listItems to ad-hoc file
+        [x] onResume
+            * read values from ad-hoc file 
 
 
 
 Next Commit:
-[ ] Remove strikethrough
 
 
 
-[ ] Save/Load state upon quitting/launching 
-        [ ] onPause
-            * write values of listItems to ad-hoc file
-        [ ] onResume
-            * read values from ad-hoc file 
 
-
-Future:
+Future
 
     * Split list (incomplete vs. complete)
         - Move item to correct list when checked/unchecked
