@@ -1,6 +1,11 @@
 package com.example.ud4.todo_list;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,19 +24,35 @@ import android.content.DialogInterface;
 import android.text.InputType;
 import android.graphics.Paint;
 
+
+
 public class MainActivity extends AppCompatActivity 
 {
     //Data members
     ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     ItemAdapter adapter;
-    float historicX = Float.NaN, historicY = Float.NaN;
-    static final int DELTA = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //String string = "hello world!";
+        //String filename = "mydata.txt";
+
+        //try
+        //{
+            //FileOutputStream fos = openFileOutput(filename, MainActivity.this.MODE_PRIVATE);
+            //fos.write(string.getBytes());
+            //fos.close();
+        //}
+        //catch (Exception e)
+        //{
+            //e.printStackTrace();
+        //}
+
+
 
         // Initialize ListView's array
         // *********************************** 
@@ -80,6 +101,7 @@ public class MainActivity extends AppCompatActivity
             //}
 
         //});//end-Swipe
+        
         // Item Long Click -- Edit item
         // ********************************************* 
         listView.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener()
@@ -203,37 +225,52 @@ public class MainActivity extends AppCompatActivity
         });
     }//end-onCreate
 
-    // OnClick for CheckBox -- called upon add_button is clicked
-    //**********************************************
-    public void toggleStrikeThrough(View view)
-    {
-        //Grab entryBox's text
-        CheckBox checkbox = (CheckBox) view;
-        final String currentValue = checkbox.getText().toString();
-        int pos = 0;
-        
-        //GetPosition of the clicked ListItem
-        for (int i = 0; i < listItems.size(); ++i)
-        {
-            if(listItems.get(i).getText() == currentValue)
-            {
-                pos = i;
-                break;
-            }
-        }
+    //@Override
+    //protected void onPause() 
+    //{
+        //super.onPause();
 
-        //Determine if checked
-        if (checkbox.isChecked() == true)
-        {
-            //Set Strikethrough text
-            checkbox.setPaintFlags(checkbox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            listItems.get(pos).setFlag(true);
-        }
-        else
-        {
-            //Reset
-            checkbox.setPaintFlags(checkbox.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-            listItems.get(pos).setFlag(false);
-        }
-    }
+        //try
+        //{
+            //String string = "hello world!";
+            //FileOutputStream fos = openFileOutput("mydata.txt", MainActivity.this.MODE_PRIVATE);
+            //fos.write(string.getBytes());
+            //fos.close();
+        //}
+        //catch (Exception e)
+        //{
+            //e.printStackTrace();
+        //}
+    //}//end-onPause
+
+    //@Override
+    //protected void onResume() 
+    //{
+        //super.onResume();
+
+        //File file = new File("mydata.txt");
+        //String str = "";
+        //String result = "";
+
+        //try
+        //{
+            //FileInputStream fis = new FileInputStream(file);
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            
+            //str = reader.readLine();
+            //while (str != null)
+                //result += str;
+
+            //listItems.add(new ListItem(result));
+
+
+            //adapter.notifyDataSetChanged();
+            //reader.close();
+            //fis.close();
+        //}
+        //catch (Exception e)
+        //{
+            //e.printStackTrace();
+        //}
+    //}//end-onPause
 }//end-class
