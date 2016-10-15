@@ -3,7 +3,6 @@
         * incomplete listview
         * complete listview -- let's ignore for now
         * add button
-
 [*] list_items.xml:
     ****************************************
     horizontal LinearLayout
@@ -24,11 +23,9 @@
 [x] Each item has state: Checked vs. Unchecked
         [x] Need custom class (needed for loading from file)
 [x] Bug fix: StrikeThorugh onClick doesn't work
-
 [x] Long click to go into edit/delete mode
         [x] Implement logic to pop dialog with EditText that grabs value
 [x] Remove strikethrough
-
 [x] Save/Load state upon quitting/launching 
         [x] onInstall
             * Create file
@@ -36,25 +33,23 @@
             * write values of listItems to ad-hoc file
         [x] onResume
             * read values from ad-hoc file 
-
+[x] Modify Save/Load funcionality
+        [x] Save "isChecked" flag to file
+[x] Fix bug
+            Incorrect casting of CheckBox to LinearLayout causes app to crash.
+[x] Visual polish
+    + TitleName=Todo
+    + Change icon
 
 
 Next Commit:
-    [x] Modify Save/Load funcionality
-            [x] Save "isChecked" flag to file
-            
+        - Round checkbox
+        - Sync colors (add_button, checked state for boxes, top bar)
   
-Bug Fix:
-    When loaded, 
 
 
 
 Future:
-   [ ] Visual polish
-        - TitleName=Todo
-        - Change icon
-        - Round checkbox
-        - Sync colors (add_button, checked state for boxes, top bar)
     * Sublist: (Tabbed sublist)
         - Edit dialog: add button for (ADD CHILD) 
     * Leftslide menu: Categories (ex. School, Learn, Todo)

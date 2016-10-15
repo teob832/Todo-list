@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("ToDo");
 
         //Check or create data file
         initDataFile(this, "mydata.txt");
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id)
             {
                 // Cast currentView
-                CheckBox currentView = (CheckBox) view;
+                CheckBox currentView = (CheckBox) view.findViewById(R.id.checkbox);
                 final String originalText = currentView.getText().toString();
 
                 //Pop open a dialog with EditText
