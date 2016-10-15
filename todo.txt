@@ -26,7 +26,7 @@
 [x] Bug fix: StrikeThorugh onClick doesn't work
 
 [x] Long click to go into edit/delete mode
-        Implement logic to pop dialog with EditText that grabs value
+        [x] Implement logic to pop dialog with EditText that grabs value
 [x] Remove strikethrough
 
 [x] Save/Load state upon quitting/launching 
@@ -40,22 +40,39 @@
 
 
 Next Commit:
+    [x] Modify Save/Load funcionality
+            [x] Save "isChecked" flag to file
+            
+  
+Bug Fix:
+    When loaded, 
 
 
 
-
-Future
-
-    * Split list (incomplete vs. complete)
-        - Move item to correct list when checked/unchecked
-
-    * Visual polish
+Future:
+   [ ] Visual polish
+        - TitleName=Todo
+        - Change icon
         - Round checkbox
         - Sync colors (add_button, checked state for boxes, top bar)
-
-
-
-Possible Modifications:
-    * Replace edit dialog with in-place EditText    
+    * Sublist: (Tabbed sublist)
+        - Edit dialog: add button for (ADD CHILD) 
+    * Leftslide menu: Categories (ex. School, Learn, Todo)
+        - Multiple activities
+            ? How to dynamically create new activies
+    * Split list (incomplete vs. complete)
+        - Move item to correct list when checked/unchecked
+    * Fade completed (strikethrough alternative)
+        (How to modify recycled views)
+    * Drag to organize
     * SYNCED TODOLIST: Write JavaScript TodoList -- set up database and sync
+
+
+
+Possible Mod:
+    * Calendar/reminder -- due dates (how to send notifications?)
+
+
+Todo:
+    * Limit for size?
 

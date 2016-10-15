@@ -13,10 +13,10 @@ public class ListItem
         mText = str;
         mCheckFlag = false;
     }
-    public ListItem(String str, boolean flag)
+    public ListItem(int flag, String str)
     {
         mText = str;
-        mCheckFlag = flag;
+        mCheckFlag = (flag == 1) ? true: false;
     }
     
     //Methods
@@ -37,11 +37,7 @@ public class ListItem
     {
         mCheckFlag = !mCheckFlag;
     }
-    public boolean getFlag()
-    {
-        return mCheckFlag;
-    }
-    public void setFlag(boolean f)
+    public void setChecked(boolean f)
     {
         mCheckFlag = f;
     }

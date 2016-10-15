@@ -35,17 +35,20 @@ public class MainActivity extends AppCompatActivity
     ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     ItemAdapter adapter;
 
+
+
+    // OnCreate
+    // ********************************************************************** 
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Check if mydata exists, create if not
+        //Check or create data file
         initDataFile(this, "mydata.txt");
         //Initialize data
         loadData(this, "mydata.txt");
-
 
         // Set adapter
         adapter = new ItemAdapter(this, listItems);
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity
             //}
 
         //});//end-Swipe
+        //
         
         // Item Long Click -- Edit item
         // ********************************************* 
@@ -159,7 +163,6 @@ public class MainActivity extends AppCompatActivity
             }//end-onItemLongClick
         });
 
-
         // Add Button
         // *********************************** 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_fab);
@@ -212,13 +215,18 @@ public class MainActivity extends AppCompatActivity
         });
     }//end-onCreate
 
+    // OnPause
+    // ********************************************************************** 
     @Override
     protected void onPause() 
     {
         super.onPause();
+
         saveData(this, "mydata.txt");
     }//end-onPause
 
+    // OnResume
+    // ********************************************************************** 
     @Override
     protected void onResume() 
     {
@@ -226,12 +234,9 @@ public class MainActivity extends AppCompatActivity
 
         listItems.clear();
         loadData(this, "mydata.txt");
-        adapter.notifyDataSetChanged();
-
     }//end-onResume
 
-
-    // Write content of listItems to file 
+    // SaveData -- Write content of listItems to file 
     // ********************************************************************** 
     public void saveData(Context context, String filename)
     {
@@ -249,23 +254,26 @@ public class MainActivity extends AppCompatActivity
 
             //Start Writing
             FileWriter writer = new FileWriter(outFile);
-
             for (int i = 0; i < listItems.size(); ++i)
+            {
+                int flag = (listItems.get(i).isChecked()) ? 1: 0;
+                writer.append(Integer.toString(flag) + "\n");
                 writer.append(listItems.get(i).getText() + "\n");
+            }
 
             writer.flush();
             writer.close();
 
         }catch (Exception e){
-
         }
     }
 
-    // Read From File -- initialize the listView array
+    // LoadData -- Read from file and initialize the listView array
     // ********************************************************************** 
     public void loadData(Context context, String filename)
     {
-        String line = "";
+        String line1 = "";
+        String line2 = "";
         File file = new File(context.getFilesDir(),"mydir");
         
         try{
@@ -273,15 +281,22 @@ public class MainActivity extends AppCompatActivity
             // open input stream test.txt for reading purpose.
             BufferedReader reader = new BufferedReader(new FileReader(inFile));
 
-            while ((line = reader.readLine()) != null) 
-                listItems.add(new ListItem(line));
+            while ((line1 = reader.readLine()) != null) 
+            {
+                int flag = Integer.parseInt(line1);
+                line2 = reader.readLine();
+                listItems.add(new ListItem(flag, line2));
+            }
+
+            reader.close();
+            adapter.notifyDataSetChanged();
         }
 
         catch(Exception e){
         }
     }
 
-    // Create file
+    // InitDataFile -- create the data file
     // ********************************************************************** 
     public void initDataFile(Context context, String filename)
     {
