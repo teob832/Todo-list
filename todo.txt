@@ -43,18 +43,29 @@
 
 
 Next Commit:
-        - Round checkbox
-        - Sync colors (add_button, checked state for boxes, top bar)
-  
+    [x] Change checkbox icon
+    [x] Modify code
 
+
+
+Next:
+   [ ] Leftslide menu: Categories (ex. School, Learn, Todo)
+        [ ] Multiple activities
+            - How to dynamically create new activies
+
+
+Plan:
+    * Create new project with navigation drawer && drop my project in 
+    * OR, create navigation drawer inside my project
 
 
 Future:
+    * Visual polish
+        - Raise add button a bit
+        - Round checkbox
+        - Sync colors (add_button, checked state for boxes, top bar)
     * Sublist: (Tabbed sublist)
         - Edit dialog: add button for (ADD CHILD) 
-    * Leftslide menu: Categories (ex. School, Learn, Todo)
-        - Multiple activities
-            ? How to dynamically create new activies
     * Split list (incomplete vs. complete)
         - Move item to correct list when checked/unchecked
     * Fade completed (strikethrough alternative)
