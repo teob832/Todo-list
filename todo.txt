@@ -40,29 +40,44 @@
 [x] Visual polish
     + TitleName=Todo
     + Change icon
+    + Change checkbox icon
++ Navigation Drawer for multilist 
+    + Set up activiy_main.xml
+    + Storage Modification.onCreate:
+        + OnDrawerItemClick: (Say School is loaded and now General is clicked) 
+            + write content of listItems into School.txt
+            + loadData(this, "General.txt") 
+            + adapter.Notify data changed
+        + Need class wide variable to notify which file is loaded -- CURRENT_LOADED
+        + Load Index.txt
+            + If indexContent.isEmpty()
+                add a default (ToDo)
+    + Storage Modification.onPause/onResume:
+        + Save/Load listItems
+        + Save/Load indexContent
+    + Need indexContent's adapter to send notifyDataSetChanged
+    + Save state of CURRENT_LOADED with SharedPreferences
+    + Listener for each drawerlist item
+
+
 
 
 Next Commit:
-    [x] Change checkbox icon
-    [x] Modify code
+    - Create new list category
+        - FAB on the drawer
+            OnClick: append to indexContent
+        - Dialog to grab user input
+        - Append this to indexContent 
+    - Delete clicked list(search indexContent && pop it)
 
-
-
-Next:
-   [ ] Leftslide menu: Categories (ex. School, Learn, Todo)
-        [ ] Multiple activities
-            - How to dynamically create new activies
-
-
-Plan:
-    * Create new project with navigation drawer && drop my project in 
-    * OR, create navigation drawer inside my project
 
 
 Future:
+    * Change long-click behavior (contextual menu -- options: Edit, Delete, Add Children)
     * Visual polish
+        - Drawer: activated item color = something_exotic
         - Raise add button a bit
-        - Round checkbox
+        + Round checkbox
         - Sync colors (add_button, checked state for boxes, top bar)
     * Sublist: (Tabbed sublist)
         - Edit dialog: add button for (ADD CHILD) 
@@ -77,6 +92,7 @@ Future:
 
 Possible Mod:
     * Calendar/reminder -- due dates (how to send notifications?)
+
 
 
 Todo:
