@@ -1,68 +1,74 @@
-[*] activity_main.xml:
-    ****************************************
-        * incomplete listview
-        * complete listview -- let's ignore for now
-        * add button
-[*] list_items.xml:
-    ****************************************
-    horizontal LinearLayout
-        * CheckBox
-        * EditButton
-        * DeleteButton
-[*] MainActivity.java:
-    ****************************************
-        ListView + Array Adapter
-[x] Add FAB 
-    ****************************************
-       [*] onClick 
-            [*] Pop dialog (with edittext) to grab user input
-            [*] Create a new listView item
-            [*] Append to adapter
-[x] Cross-off checked items
-        onClick="toggle strikethrough"
-[x] Each item has state: Checked vs. Unchecked
-        [x] Need custom class (needed for loading from file)
-[x] Bug fix: StrikeThorugh onClick doesn't work
-[x] Long click to go into edit/delete mode
-        [x] Implement logic to pop dialog with EditText that grabs value
-[x] Remove strikethrough
-[x] Save/Load state upon quitting/launching 
-        [x] onInstall
-            * Create file
-        [x] onPause
-            * write values of listItems to ad-hoc file
-        [x] onResume
-            * read values from ad-hoc file 
-[x] Modify Save/Load funcionality
-        [x] Save "isChecked" flag to file
-[x] Fix bug
-            Incorrect casting of CheckBox to LinearLayout causes app to crash.
-[x] Visual polish
-    + TitleName=Todo
-    + Change icon
-    + Change checkbox icon
-+ Navigation Drawer for multilist 
-    + Set up activiy_main.xml
-    + Storage Modification.onCreate:
-        + OnDrawerItemClick: (Say School is loaded and now General is clicked) 
-            + write content of listItems into School.txt
-            + loadData(this, "General.txt") 
-            + adapter.Notify data changed
-        + Need class wide variable to notify which file is loaded -- CURRENT_LOADED
-        + Load Index.txt
-            + If indexContent.isEmpty()
-                add a default (ToDo)
-    + Storage Modification.onPause/onResume:
-        + Save/Load listItems
-        + Save/Load indexContent
-    + Need indexContent's adapter to send notifyDataSetChanged
-    + Save state of CURRENT_LOADED with SharedPreferences
-    + Listener for each drawerlist item
-
-
+// Completed
+// ******************************************************
+    [*] activity_main.xml:
+        ****************************************
+            * incomplete listview
+            * complete listview -- let's ignore for now
+            * add button
+    [*] list_items.xml:
+        ****************************************
+        horizontal LinearLayout
+            * CheckBox
+            * EditButton
+            * DeleteButton
+    [*] MainActivity.java:
+        ****************************************
+            ListView + Array Adapter
+    [x] Add FAB 
+        ****************************************
+           [*] onClick 
+                [*] Pop dialog (with edittext) to grab user input
+                [*] Create a new listView item
+                [*] Append to adapter
+    [x] Cross-off checked items
+            onClick="toggle strikethrough"
+    [x] Each item has state: Checked vs. Unchecked
+            [x] Need custom class (needed for loading from file)
+    [x] Bug fix: StrikeThorugh onClick doesn't work
+    [x] Long click to go into edit/delete mode
+            [x] Implement logic to pop dialog with EditText that grabs value
+    [x] Remove strikethrough
+    [x] Save/Load state upon quitting/launching 
+            [x] onInstall
+                * Create file
+            [x] onPause
+                * write values of listItems to ad-hoc file
+            [x] onResume
+                * read values from ad-hoc file 
+    [x] Modify Save/Load funcionality
+            [x] Save "isChecked" flag to file
+    [x] Fix bug
+                Incorrect casting of CheckBox to LinearLayout causes app to crash.
+    [x] Visual polish
+        + TitleName=Todo
+        + Change icon
+        + Change checkbox icon
+    [+] Visual Polish:
+        + Modify colors.xml 
+    + Navigation Drawer for multilist 
+        + Set up activiy_main.xml
+        + Storage Modification.onCreate:
+            + OnDrawerItemClick: (Say School is loaded and now General is clicked) 
+                + write content of listItems into School.txt
+                + loadData(this, "General.txt") 
+                + adapter.Notify data changed
+            + Need class wide variable to notify which file is loaded -- CURRENT_LOADED
+            + Load Index.txt
+                + If indexContent.isEmpty()
+                    add a default (ToDo)
+        + Storage Modification.onPause/onResume:
+            + Save/Load listItems
+            + Save/Load indexContent
+        + Need indexContent's adapter to send notifyDataSetChanged
+        + Save state of CURRENT_LOADED with SharedPreferences
+        + Listener for each drawerlist item
+//end-COMPLETED
 
 
 Next Commit:
+    
+
+
     - Create new list category
         - FAB on the drawer
             OnClick: append to indexContent

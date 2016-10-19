@@ -24,6 +24,38 @@
             android:src="@drawable/add_icon"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="0dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:backgroundTint="#128045"
+            app:borderWidth="2dp"
+            app:elevation="8dp"
+            app:fabSize="normal" />
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+
+        <ListView android:id="@+id/drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#323232"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/drawer_fab"
+            android:src="@drawable/add_icon"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
             android:layout_width="wrap_content"
@@ -33,17 +65,7 @@
             app:backgroundTint="#FF0000"
             app:borderWidth="4dp"
             app:elevation="8dp"
-            app:fabSize="normal" />
+            app:fabSize="mini" />
     </RelativeLayout>
-
-    <!-- The navigation drawer -->
-    <ListView android:id="@+id/drawer_list"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:background="#111"/>
 </android.support.v4.widget.DrawerLayout>
 

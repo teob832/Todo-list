@@ -394,7 +394,8 @@ public class MainActivity extends AppCompatActivity
                 
                 //Start Writing
                 FileWriter writer = new FileWriter(outFile);
-                writer.append("General" + "\n");
+                for (int i = 0; i < indexContent.size(); ++i)
+                    writer.append(indexContent.get(i) + "\n");
 
                 writer.flush();
                 writer.close();
@@ -430,7 +431,7 @@ public class MainActivity extends AppCompatActivity
         if (CURRENT_LOADED == position)
         {
             drawerListView.setItemChecked(position, true);
-            leftDrawerLayout.closeDrawer(drawerListView);
+            leftDrawerLayout.closeDrawers();
             return;
         }
 
@@ -449,7 +450,7 @@ public class MainActivity extends AppCompatActivity
         CURRENT_LOADED = position;
         adapter.notifyDataSetChanged();
         drawerAdapter.notifyDataSetChanged();
-        leftDrawerLayout.closeDrawer(drawerListView);
+        leftDrawerLayout.closeDrawers();
     }//end-select
     
 }//end-class
