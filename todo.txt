@@ -62,6 +62,11 @@
         + Need indexContent's adapter to send notifyDataSetChanged
         + Save state of CURRENT_LOADED with SharedPreferences
         + Listener for each drawerlist item
+    + Animate FAB on drawer slide
+    + DrawerFab:
+        + Create new list category
+            + Dialog to grab user input
+            + Append this to indexContent 
 //end-COMPLETED
 
 
@@ -70,31 +75,34 @@ Next Commit:
 
 
 Current Task:
-    + Animate FAB on drawer slide
+    + ActionBar button: "Settings"
+        + Replace ActionBar with toolbar and set up "settings" button
+        - Dropdown menu:
+            + Rename
+                + Dialog with EditText
+                + Rename file 
+                + Replace indexContent[pos]
+                + Notify adapter
+            + Delete list
+                + Verify dialog (DELETE this list??)
+                + Delete file
+                + Pop from indexContent
+                    + Check if last list was deleted -- add dummy list
+                + Load first list by default
+                + Notify adapter
+
+TEST:
+    Check if delete works
 
 
-    + DrawerFab:
-        + Create new list category
-            + Dialog to grab user input
-            + Append this to indexContent 
-        - Reddit-like options (Add list, Add child for sublist to CURRENT_LOADED)
-    - ActionBar button: "EDIT"
-        - Delete list
-            - Check if CURRENT_LOADED == this list
-                - CURRENT_LOADED = 0
-            - Pop from indexContent
-            - Delete file
-            - Notify adapter
-        - Rename
-            - Dialog with EditText
-            - Replace indexContent[pos]
-            - Rename file 
-            - Notify adapter
+
 
 
 
 
 Future:
+    - DrawerFab:
+        - Reddit-like options (Add list, Add child for sublist to CURRENT_LOADED)
     * Change long-click behavior (contextual menu -- options: Edit, Delete, Add Children)
     * Visual polish
         - Drawer: activated item color = something_exotic

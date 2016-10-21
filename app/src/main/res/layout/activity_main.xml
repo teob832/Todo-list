@@ -13,9 +13,18 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--Placeholder to be replaced by each fragment-->
+        <android.support.v7.widget.Toolbar
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="@color/colorPrimary"
+           app:titleTextColor="@android:color/white"
+           android:elevation="4dp"
+           android:theme="@style/AppTheme"
+           />
         <ListView
             android:id="@+id/incomplete_list"
+            android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

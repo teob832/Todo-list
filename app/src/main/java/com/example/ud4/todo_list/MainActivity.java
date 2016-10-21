@@ -13,15 +13,21 @@ import java.io.PrintWriter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.design.widget.FloatingActionButton;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private DrawerItemAdapter drawerAdapter;
     private FloatingActionButton fab;
     private FloatingActionButton drawerFab;
+    private Toolbar toolBar;
+
     /**OnCreate*/
     // ********************************************************************** 
     @Override
@@ -63,6 +71,10 @@ public class MainActivity extends AppCompatActivity
         listView = (ListView) findViewById(R.id.incomplete_list);
         fab = (FloatingActionButton) findViewById(R.id.add_fab);
         drawerFab = (FloatingActionButton) findViewById(R.id.drawer_fab);
+        toolBar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Set Toolbar
+        setSupportActionBar(toolBar);
 
         //Default indexContent -- overwritten if Index aleady exists
         indexContent.add("General");
@@ -254,6 +266,120 @@ public class MainActivity extends AppCompatActivity
             }
         });//end-drawerFAB
     }//end-create
+
+    /**OnCreateOptionsMenu*/
+    // ********************************************************************** 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }//end-options
+
+    /**OnOptionsItemSelected*/
+    // ********************************************************************** 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+        switch (item.getItemId()) 
+        {
+            // RENAME
+            case R.id.rename:
+                // Set up the input
+                final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                // Dialog -- grab user entry
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                builder1.setTitle("Rename:")
+                   .setView(input)
+                   .setPositiveButton("DONE", new DialogInterface.OnClickListener() 
+                    { 
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String newName = input.getText().toString();
+                            // Rename file
+                            boolean success = renameFile(MainActivity.this, indexContent.get(CURRENT_LOADED), newName);
+                            
+                            if (success == true)
+                            {
+                                // Replace value of indexContent
+                                setTitle(newName);
+                                indexContent.set(CURRENT_LOADED, newName);
+                                drawerAdapter.notifyDataSetChanged();
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), "Rename FAILED!", Toast.LENGTH_SHORT).show();   
+                        }
+                    })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                    { 
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                AlertDialog dialog1 = builder1.create();
+                dialog1.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog1.show();
+                return true;
+
+            // DELETE
+            case R.id.delete:
+                //Warning Prompt
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                   .setTitle("DELETING LIST")
+                   .setMessage("Are you sure?")
+                   .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Delete file
+                            boolean success = deleteFile(MainActivity.this, indexContent.get(CURRENT_LOADED));
+                            if (success == true)
+                            {
+                                // Remove index
+                                indexContent.remove(CURRENT_LOADED);
+                                listItems.clear();
+
+                                //Load a placeholder list
+                                String newfile = "General";
+
+                                // Check if this was the LAST list
+                                if (indexContent.isEmpty())
+                                    indexContent.add(newfile);                
+
+                                // Load the first list by default
+                                loadData(MainActivity.this, newfile + ".txt");
+                                setTitle(newfile);
+                                drawerListView.setItemChecked(0, true);
+                                CURRENT_LOADED = 0;
+                                adapter.notifyDataSetChanged();
+                                drawerAdapter.notifyDataSetChanged();
+
+                                Toast.makeText(getApplicationContext(), "List Deleted", Toast.LENGTH_SHORT).show();   
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), "Deletion Failed", Toast.LENGTH_SHORT).show();   
+                        }
+                    })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+    }//end-Options
 
     /**OnPause*/
     // ********************************************************************** 
@@ -462,6 +588,39 @@ public class MainActivity extends AppCompatActivity
             loadIndex(MainActivity.this);
         }
     }//end
+
+    /**RenameFile */
+    // ********************************************************************** 
+    public boolean renameFile(Context context, String oldname, String newname)
+    {
+        File file = new File(context.getFilesDir(),"mydir");
+        boolean result = false;
+        try{
+            File oldFile= new File(file, oldname + ".txt");
+            File newFile= new File(file, newname + ".txt");
+
+            result = oldFile.renameTo(newFile);
+        }
+        catch(Exception e){}
+        
+        return result;
+    }//end-rename
+
+    /**DeleteFile */
+    // ********************************************************************** 
+    public boolean deleteFile(Context context, String filename)
+    {
+        boolean result = false;
+
+        File file = new File(context.getFilesDir(),"mydir");
+        try{
+            File fileToDelete = new File(file, filename + ".txt");
+            result = fileToDelete.delete();
+        }
+        catch(Exception e){}
+        
+        return result;
+    }//end-rename
 
     /**DrawerItemClickListener*/
     // ********************************************************************** 
