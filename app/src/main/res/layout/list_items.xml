@@ -9,7 +9,7 @@
     <CheckBox
         android:id="@+id/checkbox"
         android:button="@drawable/custom_checkbox"
-        android:buttonTint="@color/colorButton"
+        android:buttonTint="@color/colorCheckButton"
         android:singleLine="true"
         android:paddingLeft="13dp"
         android:layout_weight="1"

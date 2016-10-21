@@ -3,5 +3,5 @@
     <color name="colorPrimary">#128045</color>
     <color name="colorPrimaryDark">#106538</color>
     <color name="colorAccent">#59A67C</color>
-    <color name="colorButton">#419996</color>
+    <color name="colorCheckButton">#419996</color>
 </resources>

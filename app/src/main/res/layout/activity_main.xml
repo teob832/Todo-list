@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            app:backgroundTint="#128045"
+            app:backgroundTint="@color/colorPrimary"
             app:borderWidth="2dp"
             app:elevation="8dp"
             app:fabSize="normal" />
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            app:backgroundTint="#FF0000"
+            app:backgroundTint="@color/colorPrimary"
             app:borderWidth="4dp"
             app:elevation="8dp"
             app:fabSize="mini" />

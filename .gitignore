@@ -9,3 +9,4 @@
 .externalNativeBuild
 *.swp
 *.log
+/app/src/main/java/com/example/ud4/todo_list/tags

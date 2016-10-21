@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     private ItemAdapter adapter;
     private DrawerItemAdapter drawerAdapter;
-
+    private FloatingActionButton fab;
+    private FloatingActionButton drawerFab;
     /**OnCreate*/
     // ********************************************************************** 
     @Override
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         leftDrawerLayout = (DrawerLayout) findViewById(R.id.left_drawer);
         drawerListView = (ListView) findViewById(R.id.drawer_list);
         listView = (ListView) findViewById(R.id.incomplete_list);
+        fab = (FloatingActionButton) findViewById(R.id.add_fab);
+        drawerFab = (FloatingActionButton) findViewById(R.id.drawer_fab);
 
         //Default indexContent -- overwritten if Index aleady exists
         indexContent.add("General");
@@ -73,18 +76,20 @@ public class MainActivity extends AppCompatActivity
         for (int i = 0; i < indexContent.size(); ++i)
             initDataFile(this, indexContent.get(i) + ".txt");
 
-        //Set adapter for DrawerListView
+        //DrawerListView
         drawerAdapter = new DrawerItemAdapter(this, indexContent);  
         drawerListView.setAdapter(drawerAdapter);
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
+        leftDrawerLayout.addDrawerListener(new DrawerSlideListener());
 
-        //Set Adapter for ListItems
+        //ListItems
         adapter = new ItemAdapter(this, listItems);
         listView.setAdapter(adapter);
 
         //Set or restore CURRENT_LOADED
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         CURRENT_LOADED = settings.getInt("current_loaded", 0);
+
 
 
         /**Item Long Click -- Edit item*/ // ********************************************* 
@@ -156,9 +161,8 @@ public class MainActivity extends AppCompatActivity
             }
         });//end-onItemLongClick
 
-        /**Add Button*/
+        /**FAB*/
         // *********************************** 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_fab);
         fab.setOnClickListener(new View.OnClickListener() 
         {
             public void onClick(View view)
@@ -203,6 +207,52 @@ public class MainActivity extends AppCompatActivity
                 dialog.show();
             }
         });//end-FAB
+
+        /**DrawerFAB*/
+        // *********************************** 
+        drawerFab.setOnClickListener(new View.OnClickListener() 
+        {
+            public void onClick(View view)
+            {
+                //Pop up a dialog with an entry box
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Create New List:");
+                
+                // Set up the input
+                final EditText input = new EditText(MainActivity.this);
+
+                // Specify the type of input expected
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        //Create new item with the grabbed text and append to listItems
+                        String grabbedText = input.getText().toString();
+                        indexContent.add(grabbedText);                
+                        drawerAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                // Set up the buttons
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog.show();
+            }
+        });//end-drawerFAB
     }//end-create
 
     /**OnPause*/
@@ -422,6 +472,40 @@ public class MainActivity extends AppCompatActivity
             selectItem(position);
         }
     }//end-drawerListener
+
+    /**DrawerSlideListener*/
+    // ********************************************************************** 
+    private class DrawerSlideListener implements DrawerLayout.DrawerListener
+    {
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset)
+        {
+            // Get the width of the NavigationDrawer
+            int width = leftDrawerLayout.getWidth();
+
+            // Animate the main FAB
+            fab.setTranslationX(width * slideOffset);
+
+            // Hide the drawer FAB
+            if (slideOffset < 0.5)
+                drawerFab.setVisibility(View.INVISIBLE);
+            else// Show the drawer_fab
+                drawerFab.setVisibility(View.VISIBLE);
+        }
+        @Override
+        public void onDrawerStateChanged(int i) {
+        }
+
+        @Override
+        public void onDrawerOpened(View view)
+        {
+        }
+
+        @Override
+        public void onDrawerClosed(View view) {
+            // your refresh code can be called from here
+        }
+    }//end-slideListener
 
     /**SelectItem -- Swaps listItems in the main content view*/
     // ********************************************************************** 

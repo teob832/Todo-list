@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
@@ -48,17 +47,10 @@ public class ItemAdapter extends ArrayAdapter<ListItem>
             @Override
             public void onCheckedChanged(CompoundButton v, boolean flag) 
             {
-                String toastStr = "Incomplete";
-
                 CheckBox cb = (CheckBox) v;
                 boolean cbFlag = cb.isChecked();
                 int pos = Integer.parseInt(v.getTag().toString());//Use stored tag to access actual array
                 getItem(pos).setChecked(cbFlag);
-
-                if (getItem(pos).isChecked())
-                    toastStr = "Done";
-
-                Toast.makeText(getContext(), toastStr, Toast.LENGTH_SHORT).show();
             }
         });
 
