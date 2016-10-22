@@ -67,17 +67,9 @@
         + Create new list category
             + Dialog to grab user input
             + Append this to indexContent 
-//end-COMPLETED
-
-
-Next Commit:
-    
-
-
-Current Task:
     + ActionBar button: "Settings"
         + Replace ActionBar with toolbar and set up "settings" button
-        - Dropdown menu:
+        + Dropdown menu:
             + Rename
                 + Dialog with EditText
                 + Rename file 
@@ -90,10 +82,40 @@ Current Task:
                     + Check if last list was deleted -- add dummy list
                 + Load first list by default
                 + Notify adapter
+//end-COMPLETED
 
-TEST:
-    Check if delete works
 
+Next Commit:
+    
+
+
+Current task:
+    + Modify longClickBehavior
+        + Create contextual menu for each listItem: (Add Child, Edit, Delete)
+        + Edit Button
+        + Delete button
+
+
+
+
+
+
+
+
+
+
+
+
+Plan:
+    - Add Child button
+        - Storage Mod:
+            - How to store the children? 
+                - Use escape char #
+
+            - Considerations:
+                - How to drag an item with multi children?
+                - What happens to orphaned children?
+                    - Indent all orphans automatically?
 
 
 
@@ -101,6 +123,8 @@ TEST:
 
 
 Future:
+    - Add icons to context MenuItems
+    - Grab to Reorder (Additional feature for contextual menu)
     - DrawerFab:
         - Reddit-like options (Add list, Add child for sublist to CURRENT_LOADED)
     * Change long-click behavior (contextual menu -- options: Edit, Delete, Add Children)
@@ -110,8 +134,6 @@ Future:
         + Raise add button a bit
         + Round checkbox
         + Sync colors (add_button, checked state for boxes, top bar)
-    * Sublist: (Tabbed sublist)
-        - Edit dialog: add button for (ADD CHILD) 
     * Split list (incomplete vs. complete)
         - Move item to correct list when checked/unchecked
     * Fade completed (strikethrough alternative)

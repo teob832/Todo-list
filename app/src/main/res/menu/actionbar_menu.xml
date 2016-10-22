@@ -4,8 +4,8 @@
     android:icon="@drawable/ic_more"
     app:showAsAction="never">
     <item android:id="@+id/rename"
-          android:title="Rename" />
+          android:title="Rename List" />
     <item android:id="@+id/delete"
-          android:title="Delete" />
+          android:title="Delete List" />
 </menu>
 

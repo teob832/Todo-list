@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.WindowManager;
+import android.view.ContextMenu;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity
 
         //Set Toolbar
         setSupportActionBar(toolBar);
+        //Set ContextMenu for listView
+        registerForContextMenu(listView);
 
         //Default indexContent -- overwritten if Index aleady exists
         indexContent.add("General");
@@ -102,76 +105,6 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         CURRENT_LOADED = settings.getInt("current_loaded", 0);
 
-
-
-        /**Item Long Click -- Edit item*/ // ********************************************* 
-        listView.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener()
-        {
-            @Override
-            public boolean onItemLongClick(AdapterView parent, View view, int position, long id)
-            {
-                // Cast currentView
-                CheckBox currentView = (CheckBox) view.findViewById(R.id.checkbox);
-                final String originalText = currentView.getText().toString();
-
-                //Pop open a dialog with EditText
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Edit Item:");
-                
-                // Set up the input
-                final EditText input = new EditText(MainActivity.this);
-
-                // Specify the type of input expected
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                input.setText(originalText);
-                builder.setView(input);
-
-                // Set up the buttons
-                builder.setPositiveButton("DONE", new DialogInterface.OnClickListener() 
-                { 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) 
-                    {
-                        String grabbedText = input.getText().toString();
-
-                        //Find index of edited value in the ArrayList
-                        for (int i = 0; i < listItems.size(); ++i)
-                        {
-                            if (listItems.get(i).getText() == originalText)
-                            {
-                                listItems.get(i).setText(grabbedText);
-                                break;
-                            }
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-                // Set up the buttons
-                builder.setNegativeButton("DELETE", new DialogInterface.OnClickListener() 
-                { 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) 
-                    {
-                        //Find index of edited value in the ArrayList
-                        for (int i = 0; i < listItems.size(); ++i)
-                        {
-                            if (listItems.get(i).getText() == originalText)
-                            {
-                                listItems.remove(i);
-                                break;
-                            }
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                dialog.show();
-
-                return true;
-            }
-        });//end-onItemLongClick
 
         /**FAB*/
         // *********************************** 
@@ -380,6 +313,86 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }//end-Options
+
+    /**OnCreateContextMenu*/
+    // ********************************************************************** 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+    }//end-context
+
+    /**OnContextItemSelected*/
+    // ********************************************************************** 
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int pos = info.position;
+
+        switch (item.getItemId()) {
+            //Edit
+            case R.id.context_edit:
+                // Set up the input
+                final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                // Dialog -- grab user entry
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                builder1.setTitle("EDIT")
+                   .setView(input)
+                   .setPositiveButton("DONE", new DialogInterface.OnClickListener() 
+                    { 
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String grabbedString = input.getText().toString();
+                            listItems.set(pos, new ListItem(grabbedString)); 
+                            adapter.notifyDataSetChanged();
+                        }
+                    })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                    { 
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                AlertDialog dialog1 = builder1.create();
+                dialog1.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog1.show();
+                return true;
+
+            //Delete
+            case R.id.context_delete:
+                //Warning Prompt
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                   .setTitle("DELETE ITEM:")
+                   .setMessage(listItems.get(pos).getText())
+                   .setPositiveButton("DELETE", new DialogInterface.OnClickListener() 
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            listItems.remove(pos);
+                            adapter.notifyDataSetChanged();
+                        }
+                    })
+                   .setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }//end-itemselected
 
     /**OnPause*/
     // ********************************************************************** 
