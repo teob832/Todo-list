@@ -408,6 +408,13 @@ public class MainActivity extends AppCompatActivity
 
             //Delete
             case R.id.context_delete:
+                //If this leaves orphaned children 
+                if (listItems.get(pos).isParent() && listItems.get(pos+1).isChild())
+                {
+                    Toast.makeText(getApplicationContext(), "Can't leave orphans!", Toast.LENGTH_SHORT).show();   
+                    return true;
+                }
+
                 //Warning Prompt
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
                    .setTitle("DELETE ITEM:")

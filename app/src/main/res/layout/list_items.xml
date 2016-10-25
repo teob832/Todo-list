@@ -10,7 +10,7 @@
     <CheckBox
         android:id="@+id/checkbox"
         android:button="@drawable/custom_checkbox"
-        android:singleLine="true"
+        android:singleLine="false"
         android:paddingLeft="13dp"
         android:layout_weight="1"
         android:layout_width="0dp"
