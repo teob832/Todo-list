@@ -3,6 +3,8 @@
     <color name="colorPrimary">#128045</color>
     <color name="colorPrimaryDark">#106538</color>
     <color name="colorAccent">#59A67C</color>
-    <color name="colorCheckButton">#419996</color>
+    <color name="colorCheckButtonParent">#964199</color>
+    <color name="colorCheckButtonChild">#414499</color>
+    <color name="colorCheckButtonRegular">#419996</color>
     <color name="white">#FFFFFF</color>
 </resources>

@@ -24,6 +24,7 @@
            />
         <ListView
             android:id="@+id/incomplete_list"
+            android:animateLayoutChanges="true"
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,6 +53,7 @@
         android:layout_gravity="start">
 
         <ListView android:id="@+id/drawer_list"
+            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" 
+    android:animateLayoutChanges="true"
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,13 +10,11 @@
     <CheckBox
         android:id="@+id/checkbox"
         android:button="@drawable/custom_checkbox"
-        android:buttonTint="@color/colorCheckButton"
         android:singleLine="true"
         android:paddingLeft="13dp"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:longClickable="true"
-        android:textSize="18sp"
         />
 </LinearLayout>

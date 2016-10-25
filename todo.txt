@@ -82,18 +82,43 @@
                     + Check if last list was deleted -- add dummy list
                 + Load first list by default
                 + Notify adapter
+    + Modify longClickBehavior
+        + Create contextual menu for each listItem: (Add Child, Edit, Delete)
+        + Edit Button
+        + Delete button
 //end-COMPLETED
 
 
 Next Commit:
     
 
-
 Current task:
-    + Modify longClickBehavior
-        + Create contextual menu for each listItem: (Add Child, Edit, Delete)
-        + Edit Button
-        + Delete button
+    Sublist:
+        * Children treated as regular items
+        * Only modify display behavior in ItemAdapter.getView
+
+            + ListItem class
+                + Single FLAG to indicate state(checked or not), class(regular, parent, or child)
+                + Modify methods to accomodate "SINGLE-FLAG to rule them all"
+            + LoadData:
+            + SaveData:
+            + ItemAdapter
+                + If isParent()
+                    + Modify view's layout
+                        + Icon
+                        + Bold text
+                - Elif isChild()
+                    + Modify view's layout
+                        + Icon
+                        + MarginLeft
+            - Asset Drop
+                + ListItem icons
+                - Context menu items
+                    - Add child
+                    - Edit
+                    - Delete
+            + "Add Child" Contextual menuItem
+                + listItems.add(parentPos + 1, childText)
 
 
 
@@ -103,30 +128,25 @@ Current task:
 
 
 
+    - Add Child (MenuItem in contextual menu)
+        + Storage Mod:
+            + Flag indicates check-state and item-class(regular, parent, child)
 
-
-
-Plan:
-    - Add Child button
-        - Storage Mod:
-            - How to store the children? 
-                - Use escape char #
-
-            - Considerations:
-                - How to drag an item with multi children?
-                - What happens to orphaned children?
-                    - Indent all orphans automatically?
+- Considerations:
+    - What happens to orphaned children?
+        - Indent all orphans automatically?
+    - How to drag an item with multi children?
 
 
 
 
 
-
-Future:
+Future Features:
+    - Fab options (Reddit-like)
+        - Add regular item
+        - Add parent item
     - Add icons to context MenuItems
     - Grab to Reorder (Additional feature for contextual menu)
-    - DrawerFab:
-        - Reddit-like options (Add list, Add child for sublist to CURRENT_LOADED)
     * Change long-click behavior (contextual menu -- options: Edit, Delete, Add Children)
     * Visual polish
         - Drawer: activated item color = something_exotic

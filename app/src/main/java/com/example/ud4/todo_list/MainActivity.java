@@ -42,6 +42,7 @@ import android.graphics.Paint;
 public class MainActivity extends AppCompatActivity 
 {
     //Data members
+    private static Context mContext;
     private DrawerLayout leftDrawerLayout;  
     private ListView drawerListView;
     private ListView listView;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
 
         //Grab views
         leftDrawerLayout = (DrawerLayout) findViewById(R.id.left_drawer);
@@ -332,6 +334,46 @@ public class MainActivity extends AppCompatActivity
         final int pos = info.position;
 
         switch (item.getItemId()) {
+            //Add Child
+            case R.id.context_add_child:
+                // Set up the input
+                final EditText input1 = new EditText(MainActivity.this);
+                input1.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                //Pop up a dialog with an entry box
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                builder2.setTitle("Add Child:")
+               .setView(input1)
+               .setPositiveButton("ADD", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        //Create new item with the grabbed text and append to listItems
+                        String grabbedText = input1.getText().toString();
+                        ListItem newItem = new ListItem(grabbedText);
+                        listItems.add(pos + 1, newItem);                
+
+                        //Set flags
+                        listItems.get(pos).setParent(true);
+                        listItems.get(pos + 1).setChild(true);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+                { 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) 
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog2 = builder2.create();
+                dialog2.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                dialog2.show();
+                return true;
+
             //Edit
             case R.id.context_edit:
                 // Set up the input
@@ -435,6 +477,13 @@ public class MainActivity extends AppCompatActivity
         loadData(this, listname + ".txt");
     }//end-onResume
 
+    /**OnCreate*/
+    // ********************************************************************** 
+    public static Context getContext()
+    {
+        return mContext;
+    }
+
     /**SaveData -- Write content of listItems to file */
     // ********************************************************************** 
     public void saveData(Context context, String filename)
@@ -455,7 +504,7 @@ public class MainActivity extends AppCompatActivity
             FileWriter writer = new FileWriter(outFile);
             for (int i = 0; i < listItems.size(); ++i)
             {
-                int flag = (listItems.get(i).isChecked()) ? 1: 0;
+                int flag = listItems.get(i).getFlag();
                 writer.append(Integer.toString(flag) + "\n");
                 writer.append(listItems.get(i).getText() + "\n");
             }

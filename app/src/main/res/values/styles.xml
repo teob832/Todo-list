@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Parent Item-->
+    <style name="parent_item" >
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!-- Child Item -->
+    <style name="child_item" >
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        
+    </style>
+    <!-- Regular Item -->
+    <style name="regular_item" >
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+
+
 </resources>
