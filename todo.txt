@@ -114,28 +114,41 @@
         + Add Child (MenuItem in contextual menu)
             + Storage Mod:
                 + Flag indicates check-state and item-class(regular, parent, child)
+    + Dynamic Height for rows
+    + Illegalize orphans
+        + On delete, if isParent && (i+1).isChild()
+            + Toast: "Illegal op: can't leave children hanging"
 
 //end-COMPLETED
 
 
 Next Commit:
-    + Dynamic Height for rows
-    + Illegalize orphans
-        + On delete, if isParent && (i+1).isChild()
-            + Toast: "Illegal op: can't leave children hanging"
+    + Reduce default padding
+    + EditText 
+        + Starts with Capital letter
+        + Places current text in editText
+        + Bugfix: editing now keeps state of item
 
 
 
 
 Current task:
 
-    - TEST:
-        Check if illegalizing orphans works
 
+    - Show/hide children
+        * Possible implementation:
+            - in getView()
+                if isParent()
+                    set radio button to (open/close) icon (checked=show, unchecked=hide)
+                if isChild()
+                    keep traversing up till a parent is found
+                    if parent is checked 
+                        show
+                    else
+                        hide
 
-
-
-
+    
+   
 
 
 
@@ -146,8 +159,6 @@ Future Features:
     - Fab options (Reddit-like)
         - Add regular item
         - Add parent item
-    - Grab to Reorder (Additional feature for contextual menu)
-    * Change long-click behavior (contextual menu -- options: Edit, Delete, Add Children)
     * Visual polish
         - Add icons to context MenuItems
         - Drawer: activated item color = something_exotic
@@ -159,7 +170,6 @@ Future Features:
         - Move item to correct list when checked/unchecked
     * Fade completed (strikethrough alternative)
         (How to modify recycled views)
-    * Drag to organize
     * SYNCED TODOLIST: Write JavaScript TodoList -- set up database and sync
 
 

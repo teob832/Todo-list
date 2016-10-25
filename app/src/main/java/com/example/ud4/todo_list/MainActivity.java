@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 final EditText input = new EditText(MainActivity.this);
 
                 // Specify the type of input expected
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                 builder.setView(input);
 
                 // Set up the buttons
@@ -167,9 +167,8 @@ public class MainActivity extends AppCompatActivity
                 
                 // Set up the input
                 final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
-                // Specify the type of input expected
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
                 // Set up the buttons
@@ -223,7 +222,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.rename:
                 // Set up the input
                 final EditText input = new EditText(MainActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+                input.append(indexContent.get(CURRENT_LOADED));
 
                 // Dialog -- grab user entry
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.context_add_child:
                 // Set up the input
                 final EditText input1 = new EditText(MainActivity.this);
-                input1.setInputType(InputType.TYPE_CLASS_TEXT);
+                input1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
                 //Pop up a dialog with an entry box
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
@@ -378,7 +378,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.context_edit:
                 // Set up the input
                 final EditText input = new EditText(MainActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+                input.append(listItems.get(pos).getText());
 
                 // Dialog -- grab user entry
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
@@ -389,7 +390,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String grabbedString = input.getText().toString();
-                            listItems.set(pos, new ListItem(grabbedString)); 
+                            listItems.get(pos).setText(grabbedString);
                             adapter.notifyDataSetChanged();
                         }
                     })
